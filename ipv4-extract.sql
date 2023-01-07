@@ -1,5 +1,5 @@
 SELECT 
-    concat(`ixpmanager`.`vlaninterface`.`ipv4hostname`,".ix.",`ixpmanager`.`vlan`.`name`,".Ninja-IX.net"),
+    concat(`ixpmanager`.`vlaninterface`.`ipv4hostname`,".",`ixpmanager`.`vlan`.`name`,"IX.Ninja-IX.net"),
     `ixpmanager`.`vlaninterface`.`ipv4canping`,
     concat(`ipv4address`.`address`,"/24"),
     `ixpmanager`.`cust`.`name`,
