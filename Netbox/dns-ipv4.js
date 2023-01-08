@@ -6,7 +6,6 @@ var mysql = require('mysql');
 const fastcsv = require("fast-csv");
 const fs = require("fs");
 const ws = fs.createWriteStream("output/ipv4.csv");
-
 // create a connection variable with the required details
 var mycon = mysql.createConnection({
   host:         process.env.MYSQLHOST,
@@ -43,7 +42,7 @@ mycon.query(
 'JOIN `ixpmanager`.`virtualinterface` ON (`virtualinterface`.`id` = `vlaninterface`.`virtualinterfaceid`)'+
 'JOIN `ixpmanager`.`cust` ON (`cust`.`id` = `virtualinterface`.`custid`)'+
 'JOIN `ixpmanager`.`company_registration_detail` ON (`company_registration_detail`.`id` = `cust`.`company_registered_detail_id`)'+
-'WHERE `ipv4address`.`address` IS NOT NULL and (`vlan`.`private` is FALSE)'+
+'WHERE (`ipv4address`.`address` IS NOT NULL)'+
 'ORDER BY `ipv4address`.`address`',
 function (err, data, fields) {
     if (err) throw err;
@@ -56,3 +55,5 @@ function (err, data, fields) {
       })
       .pipe(ws);
 });
+
+mycon.end();
