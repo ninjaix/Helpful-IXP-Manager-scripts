@@ -1,4 +1,5 @@
 // Node.js MySQL SELECT FROM query Example
+// pe 23-01-08
 // include mysql module
 require('dotenv').config();
 var mysql = require('mysql');
