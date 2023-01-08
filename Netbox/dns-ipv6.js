@@ -23,8 +23,8 @@ mycon.connect((err) => {
 });
 
 mycon.query(
-'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`AS `dns-name`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net"),`ixpmanager`.`vlaninterface`.`ipv6canping`,'+
-'concat(`ipv6address`.`address`,"/64"))AS `ipaddress` , `ixpmanager`.`cust`.`name`, `ixpmanager`.`company_registration_detail`.`registeredName`,'+
+'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net") AS `dns-name`,`ixpmanager`.`vlaninterface`.`ipv6canping`,'+
+'concat(`ipv6address`.`address`,"/64")AS `ipaddress` , `ixpmanager`.`cust`.`name`, `ixpmanager`.`company_registration_detail`.`registeredName`,'+
 '`ixpmanager`.`vlan`.`number`,`ixpmanager`.`ipv6address`.`updated_at`,'+
 '`ixpmanager`.`cust`.`autsys`,`ixpmanager`.`vlan`.`private`,`ixpmanager`.`vlan`.`name`,`ixpmanager`.`vlaninterface`.`ipv6enabled`,'+
 '`ixpmanager`.`vlaninterface`.`ipv6monitorrcbgp`,`ixpmanager`.`vlaninterface`.`busyhost`,'+
