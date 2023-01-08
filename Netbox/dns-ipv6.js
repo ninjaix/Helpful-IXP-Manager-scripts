@@ -24,7 +24,7 @@ mycon.connect((err) => {
 mycon.query(
 'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net") AS `dns-name`,'+
 '`ixpmanager`.`vlaninterface`.`ipv6canping` AS `canping`,'+
-'concat(`ipv6address`.`address`,"/64") AS `ipaddress`,'+
+'concat(`ipv6address`.`address`,"/128") AS `ipaddress`,'+
 '`ixpmanager`.`cust`.`name` AS `network-name`,'+
 '`ixpmanager`.`company_registration_detail`.`registeredName`,'+
 '`ixpmanager`.`vlan`.`number`,'+
