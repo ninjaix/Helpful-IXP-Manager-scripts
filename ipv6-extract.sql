@@ -4,7 +4,7 @@ update 23-01-8 PE
 SELECT 
     concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`,".",`ixpmanager`.`vlan`.`name`,"IX.Ninja-IX.net"),
     `ixpmanager`.`vlaninterface`.`ipv6canping`,
-    concat(`ipv6address`.`address`,"/24"),
+    concat(`ipv6address`.`address`,"/64"),
     `ixpmanager`.`cust`.`name`,
     `ixpmanager`.`company_registration_detail`.`registeredName`,
     `ixpmanager`.`vlan`.`number`,
