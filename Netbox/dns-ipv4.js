@@ -23,18 +23,19 @@ mycon.connect((err) => {
 });
 
 mycon.query(
-'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv4hostname`,".",'+
- '`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net") AS `dns-name`,'+
- '`ixpmanager`.`vlaninterface`.`ipv4canping` AS `canping`,'+
- 'concat(`ipv4address`.`address`,"/24") AS `ipaddress`,'+
- '`ixpmanager`.`cust`.`name` AS `network-name`,'+
- '`ixpmanager`.`company_registration_detail`.`registeredName`,'+
- '`ixpmanager`.`vlan`.`number`,'+
- '`ixpmanager`.`ipv4address`.`updated_at`, AS updated_at'+
- '`ixpmanager`.`cust`.`autsys`,`ixpmanager`.`vlan`.`private`,`ixpmanager`.`vlan`.`name` as `vlan-name`,'+
- '`ixpmanager`.`vlaninterface`.`ipv4enabled` AS `enabled` ,' +
- '`ixpmanager`.`vlaninterface`.`ipv4monitorrcbgp`, AS monitorrcbgp'+
- '`ixpmanager`.`vlaninterface`.`busyhost`,'+
+'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv4hostname`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net") AS `dns-name`,'+
+'`ixpmanager`.`vlaninterface`.`ipv4canping` AS `canping`,'+
+'concat(`ipv4address`.`address`,"/24") AS `ipaddress`,'+
+'`ixpmanager`.`cust`.`name` AS `network-name`,'+
+'`ixpmanager`.`company_registration_detail`.`registeredName`,'+
+'`ixpmanager`.`vlan`.`number`,'+
+'`ixpmanager`.`ipv4address`.`updated_at` AS `updated_at`,'+
+'`ixpmanager`.`cust`.`autsys`,'+
+'`ixpmanager`.`vlan`.`private`,'+
+'`ixpmanager`.`vlan`.`name` AS `vlan-name`,'+
+'`ixpmanager`.`vlaninterface`.`ipv4enabled` AS `enabled`,'+
+'`ixpmanager`.`vlaninterface`.`ipv4monitorrcbgp` AS `monitorcbgp`,'+
+'`ixpmanager`.`vlaninterface`.`busyhost`,'+
 'concat("https://portal.ninja-ix.net/customer/overview/",`ixpmanager`.`cust`.`id`) AS `IXPM-Link`'+
 'FROM `ixpmanager`.`vlaninterface`'+
 'JOIN `ixpmanager`.`ipv4address` ON (`ipv4address`.`id` = `ipv4addressid`)'+
@@ -55,5 +56,3 @@ function (err, data, fields) {
       })
       .pipe(ws);
 });
-
-mycon.end();
