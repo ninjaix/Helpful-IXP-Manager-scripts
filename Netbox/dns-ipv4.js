@@ -5,6 +5,8 @@ require('dotenv').config();
 var mysql = require('mysql');
 const fastcsv = require("fast-csv");
 const fs = require("fs");
+const ws = fs.createWriteStream("output/ipv6.csv");
+
 // create a connection variable with the required details
 var mycon = mysql.createConnection({
   host:         process.env.MYSQLHOST,
