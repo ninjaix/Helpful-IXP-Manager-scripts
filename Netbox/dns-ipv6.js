@@ -23,11 +23,12 @@ mycon.connect((err) => {
 });
 
 mycon.query(
-'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net"),`ixpmanager`.`vlaninterface`.`ipv4canping`,'+
-'concat(`ipv6address`.`address`,"/64"), `ixpmanager`.`cust`.`name`, `ixpmanager`.`vlan`.`number`,`ixpmanager`.`ipv6address`.`updated_at`,'+
+'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`AS `dns-name`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net"),`ixpmanager`.`vlaninterface`.`ipv6canping`,'+
+'concat(`ipv6address`.`address`,"/64"))AS `ipaddress` , `ixpmanager`.`cust`.`name`, `ixpmanager`.`company_registration_detail`.`registeredName`,'+
+'`ixpmanager`.`vlan`.`number`,`ixpmanager`.`ipv6address`.`updated_at`,'+
 '`ixpmanager`.`cust`.`autsys`,`ixpmanager`.`vlan`.`private`,`ixpmanager`.`vlan`.`name`,`ixpmanager`.`vlaninterface`.`ipv6enabled`,'+
 '`ixpmanager`.`vlaninterface`.`ipv6monitorrcbgp`,`ixpmanager`.`vlaninterface`.`busyhost`,'+
-'concat("https://portal.ninja-ix.net/customer/overview/",`ixpmanager`.`cust`.`id`)'+
+'concat("https://portal.ninja-ix.net/customer/overview/",`ixpmanager`.`cust`.`id`) AS `IXPM-Link`'+
 'FROM `ixpmanager`.`vlaninterface`'+
 'JOIN `ixpmanager`.`ipv6address` ON (`ipv6address`.`id` = `ipv6addressid`)'+
 'JOIN `ixpmanager`.`vlan` ON (`vlan`.`id` = `vlaninterface`.`vlanid`)'+
@@ -41,7 +42,7 @@ function (err, data, fields) {
     const jsonData = JSON.parse(JSON.stringify(data));
 //    console.log("jsonData", jsonData);
     fastcsv
-      .write(jsonData, { headers: false })
+      .write(jsonData, { headers: true })
       .on("finish", function() {
         console.log("Write to output/ipv6.csv successfully!");
       })
