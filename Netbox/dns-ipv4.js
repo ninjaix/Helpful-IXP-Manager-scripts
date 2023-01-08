@@ -32,7 +32,7 @@ mycon.query(
  '`ixpmanager`.`vlan`.`number`,'+
  '`ixpmanager`.`ipv4address`.`updated_at`, AS updated_at'+
  '`ixpmanager`.`cust`.`autsys`,`ixpmanager`.`vlan`.`private`,`ixpmanager`.`vlan`.`name` as `vlan-name`,'+
- '`ixpmanager`.`vlaninterface`.`ipv4enabled` AS 'enabled' ,' +
+ '`ixpmanager`.`vlaninterface`.`ipv4enabled` AS `enabled` ,' +
  '`ixpmanager`.`vlaninterface`.`ipv4monitorrcbgp`, AS monitorrcbgp'+
  '`ixpmanager`.`vlaninterface`.`busyhost`,'+
 'concat("https://portal.ninja-ix.net/customer/overview/",`ixpmanager`.`cust`.`id`) AS `IXPM-Link`'+
