@@ -1,15 +1,23 @@
+/* Ninja-IX Script to pull ipv6 dns info into netbox ip address table
+update 23-01-8 PE
+*/
 SELECT 
-    concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net"),
+    concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`,".",`ixpmanager`.`vlan`.`name`,"IX.Ninja-IX.net"),
     `ixpmanager`.`vlaninterface`.`ipv4canping`,
     concat(`ipv6address`.`address`,"/24"),
     `ixpmanager`.`cust`.`name`,
-    `ixpmanager`.`vlan`.`number`
+    `ixpmanager`.`company_registration_detail`.`registeredName`,
+    `ixpmanager`.`vlan`.`number`,
+    `ixpmanager`.`ipv6address`.`updated_at`,
+    `ixpmanager`.`cust`.`autsys`,
+    `ixpmanager`.`vlan`.`private`,
+    `ixpmanager`.`vlan`.`name`,
+    concat("https://portal.ninja-ix.net/customer/overview/",`ixpmanager`.`cust`.`id`)
 FROM     `ixpmanager`.`vlaninterface`
         JOIN     `ixpmanager`.`ipv6address` ON (`ipv6address`.`id` = `ipv6addressid`)
         JOIN     `ixpmanager`.`vlan` ON (`vlan`.`id` = `vlaninterface`.`vlanid`)
         JOIN     `ixpmanager`.`virtualinterface` ON (`virtualinterface`.`id` = `vlaninterface`.`virtualinterfaceid`)
         JOIN     `ixpmanager`.`cust` ON (`cust`.`id` = `virtualinterface`.`custid`)
-WHERE     `ipv6address`.`address` IS NOT NULL and `vlan`.`private` is false
+        JOIN	 `ixpmanager`.`company_registration_detail` ON (`company_registration_detail`.`id` = `cust`.`company_registered_detail_id`)
+WHERE     `ipv6address`.`address` IS NOT NULL 
     ORDER BY `ipv6address`.`address`;
-FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n';
