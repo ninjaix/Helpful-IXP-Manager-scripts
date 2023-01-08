@@ -1,5 +1,5 @@
 /* Ninja-IX Script to pull ipv6 dns info into netbox ip address table
-update 23-01-8 PE
+update 23-01-08 PE
 */
 SELECT 
     concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`,".",`ixpmanager`.`vlan`.`name`,"IX.Ninja-IX.net"),
