@@ -1,22 +1,19 @@
 # These are the added fields and mappings
 ##Model IPAM-Address
 
-            field     name          label   length /type     mapping
-existing    address               ipaddress 
+table add   name                    lable                   type        weight      mapping
+existing    address                 ipaddress 
 existing    dns_name  dns-name      DNS Name
-
-new Company Name  Test    registeredName
-new   Network Name  Text  
-new   ASN   Text    autsys
-new   Link  Link  IXPM-Link
-new   Vlan Name Test  e
-new   Vlan Number Text
-new   Private VLAN  Logical private
-new     Enabled Logical   ipv4enabled / ipv6enabled
-new Pingable Logical  ipv4canping / ipv6canping
-new RC Monitored  Logical ipv4monitorrcbgp / ipv6monitorrcbgp
-new   Busy Host Logical   busyhost
-new   Last Modified  number,updated_at
-
-,,name,,,,,,,,
-
+###  added on 2023-01-08
+new         participant             Company Name            Text        100         registeredName
+new         network_name            Network Name            Text        120         network-name
+new         asn                     ASN                     Text        104         autsys
+new         Link                    Link                    url         105         IXPM-Link
+new         network_vlan            Vlan Name               Text        120         vlan-name
+new         vlan_number             Vlan Number             Text        131         number
+new         private                 Private VLAN            Logical     132         private
+new         enabled                 Enabled                 Logical     140         enabled 
+new         canping                 Pingable                Logical     141         canping
+new         rcmonitored             RC Monitored            Logical     142         monitorrcbgp
+new         busyhost                Busy Host               Logical     143         busyhost
+new         updated                 Last Modified           Test        999         updated_at
