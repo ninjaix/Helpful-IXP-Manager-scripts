@@ -5,7 +5,7 @@ require('dotenv').config();
 var mysql = require('mysql');
 const fastcsv = require("fast-csv");
 const fs = require("fs");
-const ws = fs.createWriteStream("output/ipv6.csv");
+const ws = fs.createWriteStream("output/ipv4.csv");
 
 // create a connection variable with the required details
 var mycon = mysql.createConnection({
@@ -23,10 +23,12 @@ mycon.connect((err) => {
 });
 
 mycon.query(
-'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv4hostname`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net"),`ixpmanager`.`vlaninterface`.`ipv4canping`,'+
+'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv4hostname`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net") AS `dns-name`,`ixpmanager`.`vlaninterface`.`ipv4canping`,'+
+'concat(`ipv4address`.`address`,"/24") AS `ipaddress`,`ixpmanager`.`cust`.`name`,`ixpmanager`.`company_registration_detail`.`registeredName`,'+
+'`ixpmanager`.`vlan`.`number`,`ixpmanager`.`ipv4address`.`updated_at`,'+
 '`ixpmanager`.`cust`.`autsys`,`ixpmanager`.`vlan`.`private`,`ixpmanager`.`vlan`.`name`,`ixpmanager`.`vlaninterface`.`ipv4enabled`,'+
 '`ixpmanager`.`vlaninterface`.`ipv4monitorrcbgp`,`ixpmanager`.`vlaninterface`.`busyhost`,'+
-'concat("https://portal.ninja-ix.net/customer/overview/",`ixpmanager`.`cust`.`id`)'+
+'concat("https://portal.ninja-ix.net/customer/overview/",`ixpmanager`.`cust`.`id`) AS `IXPM-Link`'+
 'FROM `ixpmanager`.`vlaninterface`'+
 'JOIN `ixpmanager`.`ipv4address` ON (`ipv4address`.`id` = `ipv4addressid`)'+
 'JOIN `ixpmanager`.`vlan` ON (`vlan`.`id` = `vlaninterface`.`vlanid`)'+
@@ -40,7 +42,7 @@ function (err, data, fields) {
     const jsonData = JSON.parse(JSON.stringify(data));
 //    console.log("jsonData", jsonData);
     fastcsv
-      .write(jsonData, { headers: false })
+      .write(jsonData, { headers: true })
       .on("finish", function() {
         console.log("Write to output/ipv4.csv successfully!");
       })
