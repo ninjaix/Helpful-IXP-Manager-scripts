@@ -2,8 +2,8 @@
 ##Model IPAM-Address
 ###  added on 2023-01-08
 
-mode        name                    label                   type        weight      mapping
-existing    address                 ipaddress  <br />
+mode |       name |                   label |                  type |      weight |      mapping |
+existing |   address |                ipaddress | | | | 
 existing    dns_name  dns-name      DNS Name <br />
  <br />
 new         participant             Company Name            Text        100         registeredName <br />
