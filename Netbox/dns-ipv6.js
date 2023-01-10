@@ -1,5 +1,5 @@
 // Node.js MySQL SELECT FROM query Example
-// pe 23-01-08
+// pe 23-01-10
 // include mysql module
 require('dotenv').config();
 var mysql = require('mysql');
@@ -20,11 +20,10 @@ mycon.connect((err) => {
     console.log("Connection Failed");
   }
 });
-
 mycon.query(
 'SELECT concat(`ixpmanager`.`vlaninterface`.`ipv6hostname`,".",`ixpmanager`.`vlan`.`name`,".IX.Ninja-IX.net") AS `dns-name`,'+
 '`ixpmanager`.`vlaninterface`.`ipv6canping` AS `canping`,'+
-'concat(`ipv6address`.`address`,"/128") AS `ipaddress`,'+
+'concat(`ipv6address`.`address`,"/",trim(`networkinfo`.`masklen`)) AS `ipaddress`,'+
 '`ixpmanager`.`cust`.`name` AS `network-name`,'+
 '`ixpmanager`.`company_registration_detail`.`registeredName`,'+
 '`ixpmanager`.`vlan`.`number`,'+
@@ -39,10 +38,11 @@ mycon.query(
 'FROM `ixpmanager`.`vlaninterface`'+
 'JOIN `ixpmanager`.`ipv6address` ON (`ipv6address`.`id` = `ipv6addressid`)'+
 'JOIN `ixpmanager`.`vlan` ON (`vlan`.`id` = `vlaninterface`.`vlanid`)'+
+'JOIN `ixpmanager`.`networkinfo` ON ( `networkinfo`.`vlanid` = `vlan`.`id`)'+
 'JOIN `ixpmanager`.`virtualinterface` ON (`virtualinterface`.`id` = `vlaninterface`.`virtualinterfaceid`)'+
 'JOIN `ixpmanager`.`cust` ON (`cust`.`id` = `virtualinterface`.`custid`)'+
 'JOIN `ixpmanager`.`company_registration_detail` ON (`company_registration_detail`.`id` = `cust`.`company_registered_detail_id`)'+
-'WHERE (`ipv6address`.`address` IS NOT NULL)'+
+'WHERE (`ipv6address`.`address` IS NOT NULL) and (`networkinfo`.`protocol` = "6")'+
 'ORDER BY `ipv6address`.`address`',
 function (err, data, fields) {
     if (err) throw err;
